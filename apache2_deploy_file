@@ -1,0 +1,26 @@
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html
+
+        ErrorLog /home/vagrant/djangodemo/logs/error.log
+        CustomLog /home/vagrant/djangodemo/logs/access.log combined
+
+        Alias /static /home/vagrant/djangodemo/static
+        <Directory /home/vagrant/djangodemo/static>
+                Require all granted
+        </Directory>
+
+        <Directory /home/vagrant/djangodemo/djangobackground>
+           <Files wsgi.py>
+                 Require all granted
+           </Files>
+        </Directory>
+
+        WSGIScriptAlias / /home/vagrant/djangodemo/djangobackground/wsgi.py
+        WSGIDaemonProcess djangodemo python-path=/home/vagrant/djangodemo python-home=/home/vagrant/djangodemo/djangovenv
+        WSGIProcessGroup djangodemo
+
+
+</VirtualHost>
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+
